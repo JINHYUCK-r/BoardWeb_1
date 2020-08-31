@@ -27,6 +27,7 @@
 				<div><input type="email" name="email" placeholder="이메일" value="${data.email}"></div>
 				<div><input type="submit" value="회원가입"></div>
 			</form>
+			<div>${err}</div>
 		</div>
 	</div>
 	

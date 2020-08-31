@@ -47,6 +47,14 @@ public class JoinSer extends HttpServlet {
 		
 		int result = UserDAO.insUser(param);
 		
+		if(result ==1) {
+			response.sendRedirect("/login");
+		}else {
+			String err = "중복된 아이디입니다.";
+			request.setAttribute("err", err);
+			ViewResolver.foward("user/join", request, response);
+		}
+		
 		
 	}
 
