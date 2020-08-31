@@ -6,7 +6,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.idiot.pjt.Const;
 import com.idiot.pjt.ViewResolver;
 import com.idiot.pjt.db.UserDAO;
 import com.idiot.pjt.vo.UserVO;
@@ -21,7 +23,16 @@ public class LoginSer extends HttpServlet {
 	
 	//출력용도로 많이 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession hs = request.getSession();
+		
+		if(hs.getAttribute(Const.Login_user)!=null) {
+			response.sendRedirect("/list");
+			//return으로 jsp를 끝내주어야함.
+			return;
+		}
+		
 		ViewResolver.foward("/user/login", request, response);
+		
 	}
 
 	//폼형식을 받아와서 데이터베이스 처리할때 많이 쓰
@@ -55,7 +66,12 @@ public class LoginSer extends HttpServlet {
 				request.setAttribute("user_id", user_id);
 				ViewResolver.foward("/user/login", request, response);
 			}else if(result ==1) {
-				//로그인가능 게시판으로 이동 
+				//로그인가능/ 게시판으로 이동 
+				
+				HttpSession hs = request.getSession();
+				//hs.setAttribute("user", param);
+				//이렇게 쓰면 오타가 생기거나 오류가 생길수 있기 때문에새롭게만들어 사용한다.
+				hs.setAttribute(Const.Login_user, param);
 				response.sendRedirect("/list");
 			}
 			
