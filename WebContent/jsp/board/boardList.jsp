@@ -8,5 +8,6 @@
 </head>
 <body>
 <h1>게시판 </h1>
+${loginUser.nm}님 하이 
 </body>
 </html>

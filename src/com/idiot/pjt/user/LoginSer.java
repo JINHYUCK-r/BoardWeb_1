@@ -52,6 +52,8 @@ public class LoginSer extends HttpServlet {
 			
 			String err = "";
 			
+			HttpSession hs = request.getSession();
+			
 			if(result ==0) {
 				//조건에 맞추어 문자열을 입력받아서 setAttribut에 담아 
 				//로그인 폼의 $msg},${user_id}에 뿌려준다. EL식 
@@ -68,7 +70,7 @@ public class LoginSer extends HttpServlet {
 			}else if(result ==1) {
 				//로그인가능/ 게시판으로 이동 
 				
-				HttpSession hs = request.getSession();
+				
 				//hs.setAttribute("user", param);
 				//이렇게 쓰면 오타가 생기거나 오류가 생길수 있기 때문에새롭게만들어 사용한다.
 				hs.setAttribute(Const.Login_user, param);

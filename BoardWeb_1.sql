@@ -13,3 +13,10 @@ drop table t_user;
 
 insert into t_user(user_id,user_pw,nm) value("dfad","dafd","dafds");
 select * from t_user;
+
+select * from t_user;
+
+ALTER TABLE t_user MODIFY COLUMN user_id varchar(30) UNIQUE;
+
+insert into t_user (user_id,user_pw,nm) value("qwer1","11111","dd");
+select * from t_user where user_id = "qwe1";
