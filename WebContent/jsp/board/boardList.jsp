@@ -24,7 +24,7 @@
 	<tr>
 		<td>${item.i_board}</td>
 		<td>${item.title }</td>
-		<td>${item.i_user }</td>
+		<td>${item.nm }</td>
 		<td>${item.r_dt }</td>
 	</tr>
 	</c:forEach>

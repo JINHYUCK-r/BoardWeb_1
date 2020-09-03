@@ -12,8 +12,15 @@ import com.idiot.pjt.vo.BoardVO;
 public class BoardDAO {
 	
 	public static List<BoardVO> selBoardList(){
+		/* 초기버전. 기본적인 테이블 데이터를 가져옴 
 		String sql = "select i_board, title, ctnt, hits, i_user, r_dt, m_dt"
 					+ " from t_board";
+		*/
+		//테이블을 조인해서 이름을 가져온다.
+		String sql = "select A.i_board, A.title, A.ctnt, A.hits, A.i_user,B.nm, A.r_dt, A.m_dt"
+				+ " from t_board A"
+				+ " inner join t_user B"
+				+ " on A.i_user = B.i_user";
 		List<BoardVO> list = new ArrayList();
 		
 		 JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
@@ -37,6 +44,7 @@ public class BoardDAO {
 					//날짜는 getString타입으로 받아야
 					param.setR_dt(rs.getString("r_dt"));
 					param.setM_dt(rs.getString("m_dt"));
+					param.setNm(rs.getNString("nm"));
 					
 					list.add(param);
 				}

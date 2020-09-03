@@ -5,11 +5,11 @@ public class UserVO {
 	private int i_user;
 	private String user_id;
 	private String user_pw;
-	private String nm;
 	private String email;
 	private String progile_img;
 	private String r_dt;
 	private String m_dt;
+	private String nm;
 	
 	
 	public int getI_user() {

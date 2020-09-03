@@ -11,7 +11,15 @@ public class BoardVO {
 	private int i_user;
 	private String r_dt;
 	private String m_dt;
+	//이름을 조인받아서 보여주기위해서 새로 추가
+	private String nm;
 	
+	public String getNm() {
+		return nm;
+	}
+	public void setNm(String nm) {
+		this.nm = nm;
+	}
 	public int getI_board() {
 		return i_board;
 	}
