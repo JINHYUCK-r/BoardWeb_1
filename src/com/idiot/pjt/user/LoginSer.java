@@ -26,7 +26,7 @@ public class LoginSer extends HttpServlet {
 		HttpSession hs = request.getSession();
 		
 		if(hs.getAttribute(Const.Login_user)!=null) {
-			response.sendRedirect("/list");
+			response.sendRedirect("/board/list");
 			//return으로 jsp를 끝내주어야함.
 			return;
 		}
@@ -74,7 +74,7 @@ public class LoginSer extends HttpServlet {
 				//hs.setAttribute("user", param);
 				//이렇게 쓰면 오타가 생기거나 오류가 생길수 있기 때문에새롭게만들어 사용한다.
 				hs.setAttribute(Const.Login_user, param);
-				response.sendRedirect("/list");
+				response.sendRedirect("/board/list");
 			}
 			
 			

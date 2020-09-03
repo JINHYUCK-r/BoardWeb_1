@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <!--  jstl 라이브러리 추가 --> -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +10,28 @@
 <title>게시판보드</title>
 </head>
 <body>
+<div>${loginUser.nm}님 하이 </div>
 <h1>게시판 </h1>
-${loginUser.nm}님 하이 
+<table>
+	<tr>
+	<th>글번호</th>
+	<th>제목</th>
+	<th>글쓴이</th>
+	<th>작성일자</th>
+	</tr>
+	<!--tl식을 이용하여 값을 반복해 뿌리 -->
+	<c:forEach var="item" items="${list}" >
+	<tr>
+		<td>${item.i_board}</td>
+		<td>${item.title }</td>
+		<td>${item.i_user }</td>
+		<td>${item.r_dt }</td>
+	</tr>
+	</c:forEach>
+
+</table>
+
+
+
 </body>
 </html>
