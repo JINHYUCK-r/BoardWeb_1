@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <!--  jstl 라이브러리 추가 --> -->
+ <!--  jstl 라이브러리 추가 --> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
 <!DOCTYPE html>
@@ -12,6 +12,7 @@
 <body>
 <div>${loginUser.nm}님 하이 </div>
 <h1>게시판 </h1>
+<a href="/board/regmod"><button>글쓰기</button></a>
 <table>
 	<tr>
 	<th>글번호</th>

@@ -21,6 +21,7 @@ public class BoardDAO {
 				+ " from t_board A"
 				+ " inner join t_user B"
 				+ " on A.i_user = B.i_user";
+		
 		List<BoardVO> list = new ArrayList();
 		
 		 JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
@@ -54,6 +55,25 @@ public class BoardDAO {
 		});
 		 return list;
 		
+	}
+	
+	
+	//데이터베이스에 입력받은 게시판 글을 넣는 메소
+	public static void insBoard(BoardVO param) {
+		String sql = "insert into t_board(title, ctnt,i_user) values(?,?,?)";
+		
+		JdbcTemplate.executeUpdate(sql, new JdbcUpdateInterface() {
+
+			@Override
+			public void update(PreparedStatement ps) throws SQLException {
+				ps.setNString(1, param.getTitle());
+				ps.setNString(2, param.getCtnt());
+				ps.setInt(3, param.getI_user());
+				
+			}
+			
+		});
+					
 	}
 
 }
