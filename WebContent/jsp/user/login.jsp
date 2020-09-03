@@ -36,8 +36,8 @@ a {
         <h1>LOGIN</h1>
         <form action="/login" method="post">
         	<!-- user_id는 일치가 되지않았을때 다시 값을 반환하기위해 있는것. -->
-            <div><input type="text" name="user_id" placeholder="아이디" value="${user_id}"></div>
-            <div><input type="password" name="user_pw" placeholder="비밀번호"></div>		
+            <div><input type="text" name="user_id" placeholder="아이디" value="qwer1"></div>
+            <div><input type="password" name="user_pw" placeholder="비밀번호" value = "11111"></div>		
             <div><input type="submit" value="로그인"></div>
             <span><a href="/join">회원가입</a></span>		
         </form>

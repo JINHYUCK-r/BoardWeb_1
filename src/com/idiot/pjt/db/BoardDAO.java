@@ -20,7 +20,11 @@ public class BoardDAO {
 		String sql = "select A.i_board, A.title, A.ctnt, A.hits, A.i_user,B.nm, A.r_dt, A.m_dt"
 				+ " from t_board A"
 				+ " inner join t_user B"
-				+ " on A.i_user = B.i_user";
+				+ " on A.i_user = B.i_user"
+				+ " order by i_board desc";
+		//최신순으로 정렬하기위하여 sql문사
+				
+		//역순으로 출력하여 최신글이 가장 위에 올라오도록 한다.
 		
 		List<BoardVO> list = new ArrayList();
 		
