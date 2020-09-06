@@ -79,5 +79,43 @@ public class BoardDAO {
 		});
 					
 	}
+	
+	public static BoardVO selBoardDetail(BoardVO param) {
+		
+		String sql = "select A.i_board, A.title, B.nm, A.ctnt from t_board A"
+				+ " inner join t_user B"
+				+ " on A.i_user = B.i_user"
+				+ " where i_board = ?";
+		
+		BoardVO vo = new BoardVO();
+		
+		 JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
+
+			@Override
+			public void prepared(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, param.getI_board());
+				
+			}
+
+			@Override
+			public int excuteQuery(ResultSet rs) throws SQLException {
+				
+				if(rs.next()) {
+					
+				vo.setI_board(rs.getInt("i_board"));
+				vo.setTitle(rs.getNString("title"));
+				vo.setCtnt(rs.getNString("ctnt"));
+				vo.setNm(rs.getNString("nm"));
+				}
+				
+				return 0;
+			}
+			
+			 
+		 });
+		
+		
+		return vo;
+	}
 
 }

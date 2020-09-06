@@ -20,3 +20,25 @@ ALTER TABLE t_user MODIFY COLUMN user_id varchar(30) UNIQUE;
 
 insert into t_user (user_id,user_pw,nm) value("qwer1","11111","dd");
 select * from t_user where user_id = "qwe1";
+
+select * from t_board;
+
+
+drop table t_board;
+
+create table t_board(
+	i_board int auto_increment primary key,
+    title varchar(100) not null,
+    ctnt varchar(2000) not null,
+    hits int default 0,
+    i_user int not null,
+    r_dt timestamp default now(),
+    m_dt timestamp default now(),
+    foreign key(i_user) references t_user(i_user) on delete cascade
+); 
+select * from t_board;
+
+insert into t_board(title, ctnt,i_user) values("1","1",3);
+select * from t_board;
+insert into t_board(title, ctnt,i_user) values("2","2",3);
+insert into t_board(title, ctnt,i_user) values("3","3",3);

@@ -14,4 +14,16 @@ public class MyUtils {
 		vo = (UserVO)hs.getAttribute(Const.Login_user);
 		return vo;
 	}
+	
+	public static int parseInt(String key, HttpServletRequest request ) {
+		String strKey = request.getParameter(key);
+		int Key = Integer.parseInt(strKey);
+		
+		return Key;
+	}
+	
+	
+	
+	
+	
 }
