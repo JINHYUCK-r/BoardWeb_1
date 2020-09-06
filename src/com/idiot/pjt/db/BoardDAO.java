@@ -133,5 +133,22 @@ public class BoardDAO {
 		});
 		
 	}
+	public static int upBoard(BoardVO param) {
+		String sql = "update t_board set title = ?, ctnt = ? where i_board = ?";
+		
+		return JdbcTemplate.executeUpdate(sql, new JdbcUpdateInterface() {
+
+			@Override
+			public void update(PreparedStatement ps) throws SQLException {
+				ps.setNString(1, param.getTitle());
+				ps.setNString(2, param.getCtnt());
+				ps.setInt(3, param.getI_board());
+			}
+			
+			
+		});
+	}
+	
+	
 
 }

@@ -24,17 +24,41 @@ public class BoardRegmod extends HttpServlet {
    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-	ViewResolver.foward("/board/regmod", request, response);
 	
+	 String strI_board = request.getParameter("i_board");
+	 
+	
+	
+	 
+	 if(strI_board != null) {
+		 boolean chk = false;
+		 request.setAttribute("chk", chk);
+		 
+		 int i_board = Integer.parseInt(strI_board);
+			
+		 
+		 BoardVO param = new BoardVO();
+		 param.setI_board(i_board);
+		 
+		 BoardVO vo = new BoardVO();
+		 
+		 vo = BoardDAO.selBoardDetail(param);
+		 request.setAttribute("vo", vo);
+		 
+	 }
+	 ViewResolver.foward("/board/regmod", request, response);
 
 	}
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
+		
 		String title = request.getParameter("title");
 		String ctnt = request.getParameter("ctnt");
-		
+		String strI_board = request.getParameter("i_board");
+			
+	
 		UserVO vo = new UserVO();
 		vo = MyUtils.getLogtinUser(request);
 		int i_user = vo.getI_user();
@@ -44,9 +68,18 @@ public class BoardRegmod extends HttpServlet {
 		param.setCtnt(ctnt);
 		param.setI_user(i_user);
 		
-		BoardDAO.insBoard(param);
-		response.sendRedirect("/board/list");
 		
+		int result = 0;
+		
+		if(strI_board.equals("")) {
+			BoardDAO.insBoard(param);
+			response.sendRedirect("/board/list");
+		}else {
+			int i_board = Integer.parseInt(strI_board);	
+			param.setI_board(i_board);
+			result = BoardDAO.upBoard(param);
+			response.sendRedirect("/board/detail?i_board=" + i_board);
+			
 	}
-
+	}
 }

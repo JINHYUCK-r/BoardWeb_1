@@ -25,12 +25,14 @@
 </head>
 <body>
 <div class ="container">
-	
+	<a href="/board/list"><button>글목</button></a>
 <table>
 	<tr>
 	<td width="10%">글번호 : ${vo.i_board}</td>
 	<td width="70%">제목 : ${vo.title}</td>
-	<td width="20%">작성자 : ${vo.nm} <button onclick = "chk()" >글삭제</button></td>
+	<td width="20%">작성자 : ${vo.nm} <button onclick = "chk()" >글삭제</button>
+	<a href = "/board/regmod?i_board=${vo.i_board}"><button>글수정</button></a>
+	</td>
 	</tr>
 	<tr>
 	<td colspan="3" height="800">
