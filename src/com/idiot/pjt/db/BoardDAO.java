@@ -117,5 +117,21 @@ public class BoardDAO {
 		
 		return vo;
 	}
+	
+	public static void delBoard(BoardVO param) {
+		
+		String sql = "delete from t_board where i_board = ?";
+		
+		JdbcTemplate.executeUpdate(sql, new JdbcUpdateInterface() {
+
+			@Override
+			public void update(PreparedStatement ps) throws SQLException {
+				ps.setInt(1, param.getI_board());
+				
+			}
+			
+		});
+		
+	}
 
 }

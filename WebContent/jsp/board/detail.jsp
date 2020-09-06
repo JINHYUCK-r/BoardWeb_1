@@ -25,11 +25,12 @@
 </head>
 <body>
 <div class ="container">
+	
 <table>
 	<tr>
 	<td width="10%">글번호 : ${vo.i_board}</td>
 	<td width="70%">제목 : ${vo.title}</td>
-	<td width="20%">작성자 : ${vo.nm}</td>
+	<td width="20%">작성자 : ${vo.nm} <button onclick = "chk()" >글삭제</button></td>
 	</tr>
 	<tr>
 	<td colspan="3" height="800">
@@ -38,6 +39,19 @@
 	</tr>
 </table>
 
+
+
 </div>
+<script>
+function chk(){
+	let chk = confirm("삭제하시겠습니까?");
+	if(chk){
+		location.href="/board/delete?i_board=${vo.i_board}";
+	}else{
+		location.href="/board/detail?i_board=${vo.i_board}";
+	}
+}
+
+</script>
 </body>
 </html>

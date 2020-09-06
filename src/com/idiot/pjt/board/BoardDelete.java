@@ -8,39 +8,36 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.idiot.pjt.MyUtils;
-import com.idiot.pjt.ViewResolver;
 import com.idiot.pjt.db.BoardDAO;
 import com.idiot.pjt.vo.BoardVO;
 
 /**
- * Servlet implementation class BoardDetail
+ * Servlet implementation class BoardDelete
  */
-@WebServlet("/board/detail")
-public class BoardDetail extends HttpServlet {
+@WebServlet("/board/delete")
+public class BoardDelete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
- 
+   
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		//String int형으로 변형하는 함수 
 		int i_board = MyUtils.parseInt("i_board", request);
+		 
 		
-		BoardVO param = new BoardVO();
-		param.setI_board(i_board);
+		System.out.println(i_board);
 		
+	 	BoardVO param = new BoardVO();
+	 	param.setI_board(i_board);
+	 	
+	 	BoardDAO.delBoard(param);
+	 	
+	 	response.sendRedirect("/board/list");
 		
-		BoardVO vo = new BoardVO();
-		vo = BoardDAO.selBoardDetail(param);
-		
-		request.setAttribute("vo", vo);
-		
-		
-		ViewResolver.foward("/board/detail", request, response);
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	 
 	}
 
 }
