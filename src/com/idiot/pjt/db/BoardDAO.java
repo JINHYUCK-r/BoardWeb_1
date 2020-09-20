@@ -34,6 +34,7 @@ public class BoardDAO {
 			@Override
 			public void prepared(PreparedStatement ps) throws SQLException {
 				// TODO Auto-generated method stub
+				//list에서 넘어온값을db에 넣어 조
 				ps.setInt(1, param.getsIdx());
 				ps.setInt(2, param.getRecordCnt());
 			}
