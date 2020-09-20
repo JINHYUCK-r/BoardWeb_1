@@ -14,6 +14,42 @@ public class BoardVO {
 	//이름을 조인받아서 보여주기위해서 새로 추가
 	private String nm;
 	
+	private int page;
+	private int recordCnt; //페이지에 보여줄 글의 갯수
+	private int pagingCnt; // 몇 페이지까지있나보여주는거 전체글의수/표시할 글의 수
+	private int eIdx; //페이지의 끝 글번
+	private int sIdx; //페이지의 시작 글번호
+	
+	public int getPage() {
+		return page;
+	}
+	public void setPage(int page) {
+		this.page = page;
+	}
+	public int getRecordCnt() {
+		return recordCnt;
+	}
+	public void setRecordCnt(int recordCnt) {
+		this.recordCnt = recordCnt;
+	}
+	public int getPagingCnt() {
+		return pagingCnt;
+	}
+	public void setPagingCnt(int pagingCnt) {
+		this.pagingCnt = pagingCnt;
+	}
+	public int geteIdx() {
+		return eIdx;
+	}
+	public void seteIdx(int eIdx) {
+		this.eIdx = eIdx;
+	}
+	public int getsIdx() {
+		return sIdx;
+	}
+	public void setsIdx(int sIdx) {
+		this.sIdx = sIdx;
+	}
 	public String getNm() {
 		return nm;
 	}

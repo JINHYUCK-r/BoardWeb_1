@@ -11,7 +11,7 @@ import com.idiot.pjt.vo.BoardVO;
 // BoardDAO를 만들어서 sql문을 실행시켜VO에 값을 넣는다 
 public class BoardDAO {
 	
-	public static List<BoardVO> selBoardList(){
+	public static List<BoardVO> selBoardList(BoardVO param){
 		/* 초기버전. 기본적인 테이블 데이터를 가져옴 
 		String sql = "select i_board, title, ctnt, hits, i_user, r_dt, m_dt"
 					+ " from t_board";
@@ -21,7 +21,8 @@ public class BoardDAO {
 				+ " from t_board A"
 				+ " inner join t_user B"
 				+ " on A.i_user = B.i_user"
-				+ " order by i_board desc";
+				+ " order by i_board desc"
+				+ " limit ?, ?";
 		//최신순으로 정렬하기위하여 sql문사
 				
 		//역순으로 출력하여 최신글이 가장 위에 올라오도록 한다.
@@ -33,7 +34,8 @@ public class BoardDAO {
 			@Override
 			public void prepared(PreparedStatement ps) throws SQLException {
 				// TODO Auto-generated method stub
-				
+				ps.setInt(1, param.getsIdx());
+				ps.setInt(2, param.getRecordCnt());
 			}
 
 			@Override
@@ -150,5 +152,29 @@ public class BoardDAO {
 	}
 	
 	
+	public static int cntPage(BoardVO param) {
+		//페이지가 몇개인지 보여주는 sql
+		String sql = "select ceil(count(*)/?) as pagingCnt from t_board";
+		
+		JdbcTemplate.executeQuery(sql, new JdbcSelectInterface() {
+
+			@Override
+			public void prepared(PreparedStatement ps) throws SQLException {
+				// TODO Auto-generated method stub
+				ps.setInt(1, param.getRecordCnt());
+			}
+
+			@Override
+			public int excuteQuery(ResultSet rs) throws SQLException {
+				if(rs.next()) {
+					param.setPagingCnt(rs.getInt("pagingCnt"));
+				}
+				return 0;
+			}
+			
+		});
+		
+		return param.getPagingCnt();
+	}
 
 }

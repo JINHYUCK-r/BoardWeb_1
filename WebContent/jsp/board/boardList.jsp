@@ -29,9 +29,13 @@
 		<td>${item.r_dt }</td>
 	</tr>
 	</c:forEach>
-
 </table>
-
+<!--페이징을 보여주는  -->
+<div>
+	<c:forEach var="item" begin="1" step="1" end="${pagingCnt}">
+		<span class="page"><a href="/board/list?page=${item}">${item}</a></span>
+	</c:forEach>
+</div>
 
 
 </body>

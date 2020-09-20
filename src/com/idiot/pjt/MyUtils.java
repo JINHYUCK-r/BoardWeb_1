@@ -17,9 +17,14 @@ public class MyUtils {
 	
 	public static int parseInt(String key, HttpServletRequest request ) {
 		String strKey = request.getParameter(key);
-		int Key = Integer.parseInt(strKey);
 		
-		return Key;
+		try {
+			int Key = Integer.parseInt(strKey);
+			return Key;
+		}catch(Exception e) {
+			return 0;
+		}
+		
 	}
 	
 	
