@@ -60,7 +60,52 @@
 	</tr>
 </table>
 
+	
+    	
+    	
+    	<div class="cotainer_cmt">
+    		<h3> 댓글 리스트 </h3>
+    		<table class="table_cmt">
+    			<tr class="cmtRow">
+					<th>번호</th>
+					<th>내용</th>
+					<th>글쓴이</th>
+					<th>등록일</th>
+					<th>비고</th>
+				</tr>
+				
+		    	<c:forEach items="${list}" var="item">
+				<tr class="cmtRow">
+					<td>${item.i_cmt} </td>
+					<td>${item.cmt} </td>
+					<td>
+						${item.nm}
+					</td>
+					<td>${item.r_dt}</td>
+					<td> 
+						<c:if test="${ loginUser.i_user == item.i_user }">
+								<button onclick="updateCmt('${item.cmt}', '${item.i_cmt}')">수정</button>
+	                    		<button onclick="clkCmtDel(${item.i_cmt})">삭제</button>
+	            		</c:if>
+					</td>
+				</tr>
+				</c:forEach>
+			
+    		</table>
+    	</div>
 
+	<div>
+    		<form id="cmtFrm" action="/board/cmt" method="post">
+    			<input type="hidden" name="i_cmt" value="0" class="i_cmtt">
+    			<input type="hidden" name="i_board" value="${vo.i_board}">
+    			<input type="hidden" name="i_user" value="${vo.i_user}">
+    			<div class="cmt-buttons">
+    				<input type="text" name="cmt" placeholder="댓글내용" class="cmt-box" value="">
+    				<input type="submit" value="전송" id="cmtSubmit">
+    				<input type="submit" value="취소" onclick="clkCmtCancel()">
+    			</div>
+    		</form>
+    	</div>
 
 </div>
 <script>
@@ -74,6 +119,26 @@ function chk(){
 }
 function togglelike(){
 	location.href="/UserLikeSer?i_board=${vo.i_board}&yn_like=${vo.yn_like}&i_user=${vo.i_user}";
+}
+
+function updateCmt(cmt2, i_cmt2) {
+	
+	cmtFrm.i_cmt.value = i_cmt2;
+	cmtFrm.cmt.value = cmt2;
+	
+	cmtSubmit.value = '수정';
+}
+
+function clkCmtCancel() {
+	cmtFrm.i_cmt = 0;
+	cmtFrm.cmt.value = '';
+	cmtSubmit.value = '전송';
+}
+
+function clkCmtDel(i_cmt) {
+	if(confirm('삭제하시겠습니까?')) {
+		location.href = '/board/cmt?i_board=${vo.i_board}&i_cmt=' + i_cmt;
+	}
 }
 
 </script>

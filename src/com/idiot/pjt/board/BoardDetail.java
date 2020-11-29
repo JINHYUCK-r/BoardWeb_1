@@ -1,6 +1,8 @@
 package com.idiot.pjt.board;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,7 +13,9 @@ import javax.servlet.http.HttpSession;
 import com.idiot.pjt.Const;
 import com.idiot.pjt.MyUtils;
 import com.idiot.pjt.ViewResolver;
+import com.idiot.pjt.db.BoardCmtDAO;
 import com.idiot.pjt.db.BoardDAO;
+import com.idiot.pjt.vo.BoardCmtVO;
 import com.idiot.pjt.vo.BoardVO;
 import com.idiot.pjt.vo.UserVO;
 
@@ -39,6 +43,9 @@ public class BoardDetail extends HttpServlet {
 		
 		BoardVO vo = new BoardVO();
 		vo = BoardDAO.selBoardDetail(param);
+		
+		List<BoardCmtVO> list = BoardCmtDAO.selBoardCmtlist(param);
+		request.setAttribute("list", list);
 		
 		request.setAttribute("vo", vo);
 		
