@@ -46,6 +46,7 @@
 	<span class="material-icons" onclick="togglelike()" >favorite</span>
 	</c:if>
 	
+	${vo.likecnt}
 	
 	</td>
 	<td width="20%">작성자 : ${vo.nm} <button onclick = "chk()" >글삭제</button>

@@ -19,6 +19,7 @@
 	<th>제목</th>
 	<th>글쓴이</th>
 	<th>작성일자</th>
+	<th>좋아요</th>
 	</tr>
 	<!--tl식을 이용하여 값을 반복해 뿌리 -->
 	<c:forEach var="item" items="${list}" >
@@ -27,6 +28,7 @@
 		<td><a href="/board/detail?i_board=${item.i_board}">${item.title}</a></td>
 		<td>${item.nm }</td>
 		<td>${item.r_dt }</td>
+		<td>${item.likecnt }</td>
 	</tr>
 	</c:forEach>
 </table>

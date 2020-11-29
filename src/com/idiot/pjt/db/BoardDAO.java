@@ -17,10 +17,13 @@ public class BoardDAO {
 					+ " from t_board";
 		*/
 		//테이블을 조인해서 이름을 가져온다.
-		String sql = "select A.i_board, A.title, A.ctnt, A.hits, A.i_user,B.nm, A.r_dt, A.m_dt"
+		String sql = "select A.i_board, A.title, A.ctnt, A.hits, A.i_user,B.nm, A.r_dt, A.m_dt, ifnull(C.likecnt, 0) as likecnt"
 				+ " from t_board A"
 				+ " inner join t_user B"
 				+ " on A.i_user = B.i_user"
+				+ " left join "
+				+ " (select i_board, count(i_board) as likecnt from t_board_like group by i_board) C"
+				+ " on A.i_board = C.i_board"
 				+ " order by i_board desc"
 				+ " limit ?, ?";
 		//최신순으로 정렬하기위하여 sql문사
@@ -54,6 +57,7 @@ public class BoardDAO {
 					param.setM_dt(rs.getString("m_dt"));
 					param.setNm(rs.getNString("nm"));
 					
+					param.setLikecnt(rs.getInt("likecnt"));
 					list.add(param);
 				}
 				return 0;
@@ -92,7 +96,7 @@ public class BoardDAO {
 				+ " on A.i_user = B.i_user"
 				+ " LEFT JOIN t_board_like C"
 				+ " ON A.i_board = C.i_board "
-				+ " AND B.i_user = ?"
+				+ " AND C.i_user = ?"
 				+ " where A.i_board = ?";
 		
 		BoardVO vo = new BoardVO();
