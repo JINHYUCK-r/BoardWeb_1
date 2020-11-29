@@ -10,7 +10,7 @@
 <title>게시판보드</title>
 </head>
 <body>
-<div>${loginUser.nm}님 하이 </div>
+<div>${loginUser.nm}님 하이 <a href = "/logout"><button>로그아웃</button></a></div>
 <h1>게시판 </h1>
 <a href="/board/regmod"><button>글쓰기</button></a>
 <table>
