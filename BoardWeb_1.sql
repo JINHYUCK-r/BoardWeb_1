@@ -42,3 +42,12 @@ insert into t_board(title, ctnt,i_user) values("1","1",3);
 select * from t_board;
 insert into t_board(title, ctnt,i_user) values("2","2",3);
 insert into t_board(title, ctnt,i_user) values("3","3",3);
+
+select ceil(count(*)/5) from t_board;
+
+select A.i_board, A.title, A.ctnt, A.hits, A.i_user,B.nm, A.r_dt, A.m_dt
+				from t_board A
+			inner join t_user B
+				on A.i_user = B.i_user
+				 order by i_board desc
+				 limit 0,5;

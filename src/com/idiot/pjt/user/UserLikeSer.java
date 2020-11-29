@@ -1,4 +1,4 @@
-package com.idiot.pjt.board;
+package com.idiot.pjt.user;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -10,43 +10,45 @@ import javax.servlet.http.HttpSession;
 
 import com.idiot.pjt.Const;
 import com.idiot.pjt.MyUtils;
-import com.idiot.pjt.ViewResolver;
 import com.idiot.pjt.db.BoardDAO;
 import com.idiot.pjt.vo.BoardVO;
 import com.idiot.pjt.vo.UserVO;
 
 /**
- * Servlet implementation class BoardDetail
+ * Servlet implementation class UserLikeSer
  */
-@WebServlet("/board/detail")
-public class BoardDetail extends HttpServlet {
+@WebServlet("/UserLikeSer")
+public class UserLikeSer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
- 
+  
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
 		HttpSession hs = request.getSession();
 		UserVO user = (UserVO) hs.getAttribute(Const.Login_user);
+
 		
-		//String int형으로 변형하는 함수 
-		int i_board = MyUtils.parseInt("i_board", request);
-		int i_user = user.getI_user();
+		String strI_board = request.getParameter("i_board");
+		int i_board = Integer.parseInt(strI_board);	
+		String strLike = request.getParameter("yn_like");
+		int yn_like = Integer.parseInt(strLike);
+		System.out.println(yn_like);
+		String strI_user = request.getParameter("i_user");
+		int i_user = Integer.parseInt(strI_user);
 		
 		BoardVO param = new BoardVO();
 		param.setI_board(i_board);
-		param.setI_user(i_user);
+		param.setI_user(user.getI_user());
 		
+		if(yn_like == 0) {
+			BoardDAO.insLike(param);
+		} else {
+			BoardDAO.delLike(param);
+		}
 		
-		BoardVO vo = new BoardVO();
-		vo = BoardDAO.selBoardDetail(param);
+		response.sendRedirect("/board/detail?i_board=" + i_board + "&i_user=" + i_user);
 		
-		request.setAttribute("vo", vo);
-		
-		
-		ViewResolver.foward("/board/detail", request, response);
 	}
 
-	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	}

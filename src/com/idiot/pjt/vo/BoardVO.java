@@ -20,6 +20,10 @@ public class BoardVO {
 	private int eIdx; //페이지의 끝 글번
 	private int sIdx; //페이지의 시작 글번호
 	
+	//private int like;
+	private int likecnt; //좋아요 갯
+	private int yn_like; // 나의 좋아요 유무확인
+	
 	public int getPage() {
 		return page;
 	}
@@ -98,5 +102,18 @@ public class BoardVO {
 	public void setM_dt(String m_dt) {
 		this.m_dt = m_dt;
 	}
+	public int getLikecnt() {
+		return likecnt;
+	}
+	public void setLikecnt(int likecnt) {
+		this.likecnt = likecnt;
+	}
+	public int getYn_like() {
+		return yn_like;
+	}
+	public void setYn_like(int yn_like) {
+		this.yn_like = yn_like;
+	}
+	
 
 }

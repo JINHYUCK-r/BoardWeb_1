@@ -85,10 +85,15 @@ public class BoardDAO {
 	
 	public static BoardVO selBoardDetail(BoardVO param) {
 		
-		String sql = "select A.i_board, A.title, B.nm, A.ctnt from t_board A"
+		String sql = "select A.*, B.nm,IF(c.i_user is null, 0, 1) as yn_like, "
+				+ " (select count(*) from t_board_like where i_board = ? ) as likecnt"
+				+ " from t_board A"
 				+ " inner join t_user B"
 				+ " on A.i_user = B.i_user"
-				+ " where i_board = ?";
+				+ " LEFT JOIN t_board_like C"
+				+ " ON A.i_board = C.i_board "
+				+ " AND B.i_user = ?"
+				+ " where A.i_board = ?";
 		
 		BoardVO vo = new BoardVO();
 		
@@ -97,6 +102,8 @@ public class BoardDAO {
 			@Override
 			public void prepared(PreparedStatement ps) throws SQLException {
 				ps.setInt(1, param.getI_board());
+				ps.setInt(2, param.getI_user());
+				ps.setInt(3, param.getI_board());
 				
 			}
 
@@ -109,6 +116,11 @@ public class BoardDAO {
 				vo.setTitle(rs.getNString("title"));
 				vo.setCtnt(rs.getNString("ctnt"));
 				vo.setNm(rs.getNString("nm"));
+				vo.setR_dt(rs.getString("r_dt"));
+				vo.setI_user(rs.getInt("i_user"));
+				vo.setLikecnt(rs.getInt("likecnt"));
+				vo.setYn_like(rs.getInt("yn_like"));
+				
 				}
 				
 				return 0;
@@ -177,5 +189,37 @@ public class BoardDAO {
 		
 		return param.getPagingCnt();
 	}
+
+
+
+public static void insLike(BoardVO param) {
+	String sql = " insert into t_board_like "
+			+ " (i_user, i_board) "
+			+ " VALUES (?, ?) "; 
+	
+	JdbcTemplate.executeUpdate(sql, new JdbcUpdateInterface() {
+
+		@Override
+		public void update(PreparedStatement ps) throws SQLException {
+			ps.setInt(1, param.getI_user());
+			ps.setInt(2, param.getI_board());
+		}});
+	
+}
+
+public static void delLike(BoardVO param) {
+	String sql = " delete from t_board_like "
+			+ " where i_board = ? "
+			+ " AND i_user = ? ";
+	
+	JdbcTemplate.executeUpdate(sql, new JdbcUpdateInterface() {
+
+		@Override
+		public void update(PreparedStatement ps) throws SQLException {
+			ps.setInt(1, param.getI_board());
+			ps.setInt(2, param.getI_user());
+		}});
+	
+}
 
 }
