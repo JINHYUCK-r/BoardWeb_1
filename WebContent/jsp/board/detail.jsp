@@ -10,9 +10,10 @@
 	rel="stylesheet">
 <style>
 	.container{
-	margin: 0 auto;
+	margin: 10px auto;
 	width: 1000px;
 	height: 2000px;
+	font-size : large;
 	}
 	table{
 	margin: auto;
@@ -27,18 +28,38 @@
 	.material-icons{
 	color : red;
 	cursor: pointer;
+	float : right;
 	}
+	.likenum{
+	float : right;
+	font-size: 16px;
+	}
+	h3{
+	color : green;
+	}
+	#cmtFrm{
+	margin : 10px auto 10px 100px;
+	}
+	#list{
+	margin : auto auto auto 100px;
+	}
+	.cotainer_cmt{
+	text-align: center;
+	}
+	
+
 	
 </style>
 </head>
 <body>
 <div class ="container">
-	<a href="/board/list"><button>글목</button></a>
+	<a href="/board/list" id="list"><button>글목록</button></a>
 <table>
 	<tr>
-	<td width="10%">글번호 : ${vo.i_board}</td>
-	<td width="70%">제목 : ${vo.title}
+	<td width="20%">글번호 : ${vo.i_board}</td>
+	<td width="60%">제목 : ${vo.title}
 	
+	<div class="likenum">${vo.likecnt}</div>
 	<c:if test="${vo.yn_like == 0}">
 	<span class="material-icons" onclick="togglelike()"> favorite_border </span>
 	</c:if>
@@ -46,16 +67,18 @@
 	<span class="material-icons" onclick="togglelike()" >favorite</span>
 	</c:if>
 	
-	${vo.likecnt}
+	
 	
 	</td>
-	<td width="20%">작성자 : ${vo.nm} <button onclick = "chk()" >글삭제</button>
+	<td width="20%">작성자 : ${vo.nm} <br>
 	<a href = "/board/regmod?i_board=${vo.i_board}"><button>글수정</button></a>
+	<button onclick = "chk()" >글삭제</button>
 	</td>
 	</tr>
 	<tr>
-	<td colspan="3" height="800">
-	내용: ${vo.ctnt}
+	<td colspan="3" height="500" style="
+    padding: 20px; ">
+	${vo.ctnt}
 	</td>
 	</tr>
 </table>
@@ -76,13 +99,13 @@
 				
 		    	<c:forEach items="${list}" var="item">
 				<tr class="cmtRow">
-					<td>${item.i_cmt} </td>
-					<td>${item.cmt} </td>
-					<td>
+					<td width="10%">${item.i_cmt} </td>
+					<td width="50%">${item.cmt} </td>
+					<td width="12%">
 						${item.nm}
 					</td>
-					<td>${item.r_dt}</td>
-					<td> 
+					<td width="18%">${item.r_dt}</td>
+					<td width="10%"> 
 						<c:if test="${ loginUser.i_user == item.i_user }">
 								<button onclick="updateCmt('${item.cmt}', '${item.i_cmt}')">수정</button>
 	                    		<button onclick="clkCmtDel(${item.i_cmt})">삭제</button>

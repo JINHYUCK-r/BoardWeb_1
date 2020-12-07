@@ -36,7 +36,7 @@ public class list extends HttpServlet {
 		
 		BoardVO param = new BoardVO();
 		//페이징
-		int recordCnt = 5; //한페이지에 보여줄 숫자 
+		int recordCnt = 8; //한페이지에 보여줄 숫자 
 		param.setRecordCnt(recordCnt);  // 파람값에 등록하여 boarddao에서 활용
 		
 		int page=MyUtils.parseInt("page", request);	//boardlist에서 넘어온 page
