@@ -61,10 +61,11 @@
 	
 	<div class="likenum">${vo.likecnt}</div>
 	<c:if test="${vo.yn_like == 0}">
-	<span class="material-icons" onclick="togglelike()"> favorite_border </span>
+	<!-- Ajax에 사용할데이터 전 -->
+	<span class="material-icons ynlike" onclick="togglelike(${vo.i_board}, ${loginUser.i_user}, ${vo.yn_like})"> favorite_border </span>
 	</c:if>
 	<c:if test="${vo.yn_like == 1}">
-	<span class="material-icons" onclick="togglelike()" >favorite</span>
+	<span class="material-icons ynlike" onclick="togglelike(${vo.i_board}, ${loginUser.i_user}, ${vo.yn_like})" >favorite</span>
 	</c:if>
 	
 	
@@ -131,6 +132,7 @@
     	</div>
 
 </div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
 function chk(){
 	let chk = confirm("삭제하시겠습니까?");
@@ -140,8 +142,45 @@ function chk(){
 		location.href="/board/detail?i_board=${vo.i_board}";
 	}
 }
-function togglelike(){
-	location.href="/UserLikeSer?i_board=${vo.i_board}&yn_like=${vo.yn_like}&i_user=${vo.i_user}";
+
+//AJAX 사용
+//전역변수로 지정 
+var cnt = 0;
+var yn_like = 0;
+
+function togglelike(i_board, i_user){
+	//location.href="/UserLikeSer?i_board=${vo.i_board}&yn_like=${vo.yn_like}&i_user=${vo.i_user}";
+	
+	//최초의 데이터를 가져와서 사용하고 그 다음부터는 변형된카운트를 사
+	if( cnt == 0){
+		yn_like = ${vo.yn_like};
+	}
+	
+	
+	//console.log(strYn_like);
+	
+	//AjaxLikeSer로 이동
+	axios.get('/AjaxLikeSer', {
+				params: {
+					i_board : i_board,
+					i_user : i_user,
+					yn_like : yn_like
+				}
+		//AjaxLikeSer 에서처리된 데이터를 가져와서 사
+			}).then(function(res) {		
+				yn_like = res.data.yn_like;
+				cnt++;
+				//조건에 따라 하트 모양 변형 
+				if(res.data.yn_like == 0){
+					document.querySelector('.ynlike').innerText = 'favorite_border';
+
+				}else if(res.data.yn_like == 1){
+					document.querySelector('.ynlike').innerText = 'favorite';
+				}
+				//좋아요숫자 데이터 불러와서 화면에 대입 
+				document.querySelector('.likenum').innerText = res.data.likecnt;
+			})
+
 }
 
 function updateCmt(cmt2, i_cmt2) {
